@@ -14,14 +14,14 @@
 	<div ng-if="currentUser" class="row">
 		<user-widget current-user="currentUser"></user-widget>
 		<inventory-widget current-user="currentUser"></inventory-widget>
-
+		<auction-widget current-user="currentUser"></auction-widget>
 		<!-- <div class="col-sm-4 well" ng-click="getInventory()">
 			<p>Inventory</p>
 			<div ng-repeat="inventory in inventories"></div>
 		</div> -->
-		<div class="col-sm-4 well">
+		<!-- <div class="col-sm-4 well">
 			{{currentUser.name}}
 			{{currentUser.coins}}
-		</div>
+		</div> -->
 	</div>
 </div>
