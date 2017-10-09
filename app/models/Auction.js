@@ -10,7 +10,7 @@ var mongoose = require('mongoose'),
         diamond: 0
     }
 
-module.exports = mongoose.model('Inventory', {
+module.exports = mongoose.model('Auction', {
 	sellername : {type : String, default: ''},
     quantity: {type: Number, default: 0},
     product: {type : String, enum: Object.keys(statusEnum)},

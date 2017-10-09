@@ -1,5 +1,6 @@
 var AuthService = require("./services/AuthService"),
-	InventoryService = require("./services/InventoryService");
+	InventoryService = require("./services/InventoryService"),
+	AuctionService = require("./services/AuctionService");
 
 module.exports = function(app) {
 
@@ -34,6 +35,10 @@ module.exports = function(app) {
 			}
 			res.json(inventory);
 		});
+	});
+
+	app.post('/createAuction', function (req, res) {
+
 	});
 
 	app.get('*', function(req, res) {
