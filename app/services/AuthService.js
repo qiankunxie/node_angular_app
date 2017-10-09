@@ -1,5 +1,5 @@
-var User = require("./models/User"),
-    Inventory = require("./models/Inventory");
+var User = require("../models/User"),
+    Inventory = require("../models/Inventory");
 
 function AuthService() {
 

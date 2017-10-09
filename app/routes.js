@@ -1,4 +1,4 @@
-var AuthService = require("./service/AuthService");
+var AuthService = require("./services/AuthService");
 
 module.exports = function(app) {
 
