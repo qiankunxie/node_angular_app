@@ -7,7 +7,7 @@ function AuthService() {
         if (!params.username) {
             callback("Need username!");
         }
-        User.findOne({name: username}, function (error, user) {
+        User.findOne({name: params.username}, function (error, user) {
 			if (error) {
 				return callback(error);
 			}
