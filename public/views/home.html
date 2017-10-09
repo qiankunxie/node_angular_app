@@ -13,10 +13,12 @@
 	</div>
 	<div ng-if="currentUser" class="row">
 		<user-widget current-user="currentUser"></user-widget>
-		<div class="col-sm-4 well" ng-click="getInventory()">
+		<inventory-widget current-user="currentUser"></inventory-widget>
+
+		<!-- <div class="col-sm-4 well" ng-click="getInventory()">
 			<p>Inventory</p>
 			<div ng-repeat="inventory in inventories"></div>
-		</div>
+		</div> -->
 		<div class="col-sm-4 well">
 			{{currentUser.name}}
 			{{currentUser.coins}}
