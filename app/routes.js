@@ -1,3 +1,5 @@
+var AuthService = require("./service/AuthService");
+
 module.exports = function(app) {
 
 	app.get('*', function(req, res) {
@@ -5,26 +7,24 @@ module.exports = function(app) {
 	});
 
 	app.post('/login', function (req, res) {
-		var username = req.body.username,
-			User = require("./models/User");
-		if (!username) {
-			return res.send('You need send your user name to server');
-		}
-		User.findOne({name: username}, function (error, user) {
+		console.log(req)
+		AuthService.AuthUser({
+			username: req.body.username
+		}, function (error, user) {
 			if (error) {
-				return res.send("")
+				return res.send(error);
 			}
-			console.log(user);
-			if (!user) {
-				//register user
-				user = new User({
-					name: username
-				});
-				user.save(function (error) {
-					res.send("dsadsadsa");
-				});
+			if (user) {
+				res.json(user);
 			} else {
-				res.send("dsadsadsa");
+				AuthService.CreateUser({
+					username: req.body.username
+				}, function (error, user) {
+					if (error) {
+						return res.send(error);
+					}
+					res.json(user);
+				});
 			}
 		});
 	});
