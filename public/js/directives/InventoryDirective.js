@@ -1,5 +1,5 @@
 angular.module('InventoryDirective', [])
-.directive("inventoryWidget", function ($http) {
+.directive("inventoryWidget", function ($http, MainService) {
     return {
         restrict: 'E',
         scope: {
@@ -8,16 +8,13 @@ angular.module('InventoryDirective', [])
         templateUrl: 'views/inventory.html',
         link: function (scope, element, attr) {
             scope.products = ["breads", "carrots", "diamond"];
+            MainService.getInventory(scope.currentUser.name).then(function (inventory) {
+                scope.inventory = inventory;
+            });
             function getMyInventory(username) {
-                return $http({
-                      url: '/inventory',
-                      method: 'GET',
-                      params: {
-                          username: username
-                      }
-                }).then(function (response) {
-                  	scope.inventory = response.data;
-    			});
+                MainService.getInventory(username).then(function (inventory) {
+                    scope.inventory = inventory;
+                });
         	}
             getMyInventory(scope.currentUser.name);
             console.log(scope);

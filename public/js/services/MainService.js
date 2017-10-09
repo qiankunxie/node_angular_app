@@ -11,7 +11,20 @@ angular.module('MainService', []).factory('MainService', ['$http', function($htt
 			return response.data;
 		});
 	}
+
+	function getInventory(username) {
+		return $http({
+			  url: '/inventory',
+			  method: 'GET',
+			  params: {
+				  username: username
+			  }
+		}).then(function (response) {
+			return response.data;
+		});
+	}
 	return {
-		login: login
+		login: login,
+		getInventory: getInventory
 	}
 }]);
