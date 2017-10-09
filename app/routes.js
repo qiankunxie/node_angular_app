@@ -1,13 +1,9 @@
-var AuthService = require("./services/AuthService");
+var AuthService = require("./services/AuthService"),
+	InventoryService = require("./services/InventoryService");
 
 module.exports = function(app) {
 
-	app.get('*', function(req, res) {
-		res.sendfile('./public/index.html');
-	});
-
 	app.post('/login', function (req, res) {
-		console.log(req)
 		AuthService.AuthUser({
 			username: req.body.username
 		}, function (error, user) {
@@ -27,5 +23,20 @@ module.exports = function(app) {
 				});
 			}
 		});
+	});
+
+	app.get('/inventory', function (req, res) {
+		InventoryService.GetMyInventory({
+			username: req.query.username
+		}, function (error, inventory) {
+			if (error) {
+				return res.send(error);
+			}
+			res.json(inventory);
+		});
+	});
+
+	app.get('*', function(req, res) {
+		res.sendfile('./public/index.html');
 	});
 };
