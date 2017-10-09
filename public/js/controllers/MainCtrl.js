@@ -1,25 +1,13 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $http) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, MainService) {
 
 	$scope.model = {
 		userName: ''
 	};
 
-	function loginService(username) {
-        return $http({
-                  url: '/login',
-                  method: 'POST',
-                  data: {
-                      username: username
-                  }
-              }).then(function (response) {
-              	return response.data;
-				});
-	}
-
 	$scope.login = function () {
-        loginService($scope.model.userName)
-			.then(function(user){
-				$scope.currentUser = user;
-			});
+        MainService.login($scope.model.userName)
+		.then(function(user){
+			$scope.currentUser = user;
+		});
 	};
 })
