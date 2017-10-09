@@ -12,12 +12,7 @@
 		</form>
 	</div>
 	<div ng-if="currentUser" class="row">
-		<user-widget></user-widget>
-		<div class="col-sm-4 well">
-			<p>Player Stats</p>
-			<p>Name: <span ng-bind="currentUser.name"></span></p>
-			<p>Coins: <span ng-bind="currentUser.coins"></span></p>
-		</div>
+		<user-widget current-user="currentUser"></user-widget>
 		<div class="col-sm-4 well" ng-click="getInventory()">
 			<p>Inventory</p>
 			<div ng-repeat="inventory in inventories"></div>
