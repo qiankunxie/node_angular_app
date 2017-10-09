@@ -28,7 +28,8 @@ function AuctionService() {
                 sellername: params.username,
                 quantity: params.quantity,
                 product: params.product,
-                minbid: params.minbid
+                minbid: params.minbid,
+                finishdate: Date.now() + 90 * 1000
             });
             auction.save(function (error) {
                 if (error) {

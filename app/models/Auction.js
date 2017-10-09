@@ -17,5 +17,6 @@ module.exports = mongoose.model('Auction', {
 	minbid: {type: Number, default: 0},
     winnername: {type : String, default: ''},
     winnerbid: {type: Number, default: 0},
-    status: {type: String, enum: Object.keys(statusEnum), default: 'Active'}
+    status: {type: String, enum: Object.keys(statusEnum), default: 'Active'},
+    finishdate: {type: Number}
 });
