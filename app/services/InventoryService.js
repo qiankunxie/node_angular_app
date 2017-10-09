@@ -24,7 +24,7 @@ function InventoryService() {
             inventory.diamond += params.deltaDiamond || 0;
             inventory.save(function (error) {
                 if (error) {
-                    retun callback(error);
+                    return callback(error);
                 }
                 callback(inventory);
             });
