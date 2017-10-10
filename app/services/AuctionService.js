@@ -9,7 +9,7 @@ function AuctionService() {
 
     function fullfileAuction() {
         Auction.findOne({status: 'Active'}, function (error, auction) {
-            if (error || !auction || !auction.winnername) {
+            if (error || !auction) {
                 return;
             }
             if (auction.finishdate > Date.now()) {
@@ -17,6 +17,11 @@ function AuctionService() {
             }
             Auction.update({status: 'Active'}, {$set: {status: "Closed"}}, function (error) {
                 if (error) {
+                    return;
+                }
+                if (!auction.winnername) {
+                    auction.status = "Closed"
+                    SocketService.FinishAuction(auction);
                     return;
                 }
                 // update coins
