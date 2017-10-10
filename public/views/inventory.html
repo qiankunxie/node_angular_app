@@ -1,6 +1,17 @@
-<div ng-if="inventory" class="col-sm-4 well">
-    <p>Inventory</p>
-    <div ng-repeat="product in products">
-        <p>{{product}}: <span>{{inventory[product]}}</span><md-button class="md-primary md-raised" ng-click="showPrompt($event, product)">Auction</md-button></p>
-    </div>
+<div ng-if="inventory" class="col-sm-4">
+    <md-toolbar md-scroll-shrink>
+        <div class="md-toolbar-tools">
+            <h3>Inventory</h3>
+        </div>
+    </md-toolbar>
+    <md-content flex>
+        <md-list>
+            <md-list-item ng-repeat="product in products" class="md-3-line">
+                <div class="md-list-item-text">
+                    <p>{{product}}: <span>{{inventory[product]}}</span><md-button class="md-primary md-raised pull-right" ng-click="showPrompt($event, product)">Auction</md-button></p>
+                </div>
+                <md-divider inset></md-divider>
+            </md-list-item>
+        </md-list>
+    </md-content>
 </div>
