@@ -9,6 +9,7 @@ angular.module('AuctionDirective', [])
         link: function (scope, element, attr) {
             // timer
             var mytimeout = null,
+                displaytimeout = null,
                 onTimeout = function() {
                     if(scope.counter ===  0) {
                         $timeout.cancel(mytimeout);
@@ -24,6 +25,7 @@ angular.module('AuctionDirective', [])
                     scope.auction = auction;
                     scope.counter = Math.ceil((auction.finishdate - Date.now()) / 1000);
                     $timeout.cancel(mytimeout);
+                    $timeout.cancel(displaytimeout);
                     startTimer();
                 }
 
@@ -47,6 +49,13 @@ angular.module('AuctionDirective', [])
             var socket = $window.io();
             socket.on('update-auction', function(auction){
                 initAuction(auction);
+            });
+            socket.on('finish-auction', function(auction){
+                scope.auction = auction;
+                displaytimeout = $timeout(function () {
+                    scope.auction = undefined;
+                    displaytimeout = null;
+                }, 10000);
             });
         }
     };

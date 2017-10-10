@@ -10,9 +10,9 @@ function SocketService() {
             io.emit("update-auction", auction);
         }
     }
-    this.FinishAuction = function () {
+    this.FinishAuction = function (auction) {
         if (io) {
-            io.emit("finish-auction");
+            io.emit("finish-auction", auction);
         }
     }
 }

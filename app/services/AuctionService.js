@@ -42,7 +42,7 @@ function AuctionService() {
                             };
                             params["delta" + auction.product] = auction.quantity;
                             InventoryService.ChangeInventory(params, function () {
-                                console.log("done");
+                                auction.status = "Closed"
                                 SocketService.FinishAuction(auction);
                             });
                         });
