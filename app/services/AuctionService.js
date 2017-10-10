@@ -99,14 +99,16 @@ function AuctionService() {
             }
             auction.winnerbid = params.bid;
             auction.winnername = params.username;
-            if (finishdate - Date.now() < 10 * 1000) {
+            if (auction.finishdate - Date.now() < 10 * 1000) {
                 updateFinishDate = true;
-                auction.finishdate = Date.now() + (10 * 1000 - (finishdate - Date.now()));
+                auction.finishdate = Date.now() + (10 * 1000 - (auction.finishdate - Date.now()));
             }
             auction.save(function () {
                 if (updateFinishDate) {
                     // do some io
                 }
+                SocketService.UpdateAuction(auction);
+                callback();
             })
         });
     }

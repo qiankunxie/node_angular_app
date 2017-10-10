@@ -61,6 +61,19 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/bidauction', function (req, res) {
+		var body = req.body;
+		AuctionService.BidAuction({
+			username: body.username,
+			bid: body.bid
+		}, function (error) {
+			if (error) {
+				return res.send(error);
+			}
+			res.send("Successful");
+		});
+	});
+
 	app.get('*', function(req, res) {
 		res.sendfile('./public/index.html');
 	});

@@ -8,7 +8,6 @@ angular.module('AuctionDirective', [])
         templateUrl: 'views/auction.html',
         link: function (scope, element, attr) {
             // timer
-            scope.counter = 0;
             var mytimeout = null,
                 onTimeout = function() {
                     if(scope.counter ===  0) {
@@ -27,6 +26,18 @@ angular.module('AuctionDirective', [])
                     $timeout.cancel(mytimeout);
                     startTimer();
                 }
+
+            scope.counter = 0;
+            scope.model = {bid: 0};
+
+            scope.bidAuction = function () {
+                MainService.bidAuction({
+                    username: scope.currentUser.name,
+                    bid: scope.model.bid
+                }).then(function (message) {
+                    console.log(message);
+                });
+            }
             // init the web socket
             MainService.getAuction().then(function (auction) {
                 if (auction) {

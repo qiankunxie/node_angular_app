@@ -39,10 +39,20 @@ angular.module('MainService', []).factory('MainService', ['$http', function($htt
 			return response.data;
 		});
 	}
+	function bidAuction(data) {
+		return $http({
+			url: '/bidauction',
+			method: 'POST',
+			data: data
+		}).then(function (response) {
+			return response.data;
+		});
+	}
 	return {
 		login: login,
 		getInventory: getInventory,
 		getAuction: getAuction,
-		createAuction: createAuction
+		createAuction: createAuction,
+		bidAuction: bidAuction
 	}
 }]);
