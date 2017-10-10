@@ -12,7 +12,13 @@ function AuctionService() {
             if (error || !auction || !auction.winnername) {
                 return;
             }
-            if (auction.finishdate < Date.now()) {
+            if (auction.finishdate > Date.now()) {
+                return;
+            }
+            Auction.update({status: 'Active'}, {$set: {status: "Closed"}}, function (error) {
+                if (error) {
+                    return;
+                }
                 // update coins
                 var sellerName = auction.sellername,
                     buyerName = auction.winnername;
@@ -37,11 +43,12 @@ function AuctionService() {
                             params["delta" + auction.product] = auction.quantity;
                             InventoryService.ChangeInventory(params, function () {
                                 console.log("done");
+                                SocketService.FinishAuction(auction);
                             });
                         });
                     })
                 });
-            }
+            });
         });
     }
 
@@ -80,9 +87,9 @@ function AuctionService() {
                     return callback(error);
                 }
                 SocketService.UpdateAuction(auction);
-                // setTimeout(function () {
-                //     fullfileAuction();
-                // }, 90 * 1000 + 10);
+                setTimeout(function () {
+                    fullfileAuction();
+                }, 20 * 1000 + 10);
                 callback(null, auction);
             });
 		});
@@ -105,7 +112,9 @@ function AuctionService() {
             }
             auction.save(function () {
                 if (updateFinishDate) {
-                    // do some io
+                    setTimeout(function () {
+                        fullfileAuction();
+                    }, 10 * 1000 + 10);
                 }
                 SocketService.UpdateAuction(auction);
                 callback();

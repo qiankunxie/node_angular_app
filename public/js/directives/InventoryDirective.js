@@ -1,5 +1,5 @@
 angular.module('InventoryDirective', [])
-.directive("inventoryWidget", function ($http, MainService, $mdDialog) {
+.directive("inventoryWidget", function ($http, MainService, $mdDialog, $window) {
     return {
         restrict: 'E',
         scope: {
@@ -41,7 +41,10 @@ angular.module('InventoryDirective', [])
                 });
             };
             getMyInventory(scope.currentUser.name);
-            console.log(scope);
+            var socket = $window.io();
+            socket.on('finish-auction', function(){
+                getMyInventory(scope.currentUser.name);
+            });
         }
     };
 });
