@@ -1,5 +1,5 @@
 angular.module('AuctionDirective', [])
-.directive("auctionWidget", function ($http, $window, MainService, $timeout) {
+.directive("auctionWidget", function ($http, $window, MainService, $timeout, $mdDialog) {
     return {
         restrict: 'E',
         scope: {
@@ -27,12 +27,25 @@ angular.module('AuctionDirective', [])
                     $timeout.cancel(mytimeout);
                     $timeout.cancel(displaytimeout);
                     startTimer();
-                }
+                },
+                showAlert = function() {
+                    $mdDialog.show(
+                      $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Alert')
+                        .textContent("Your bid need to be larger then winner's bid")
+                        .ok('Got it!')
+                    );
+                };
 
             scope.counter = 0;
             scope.model = {bid: 0};
 
             scope.bidAuction = function () {
+                if (scope.model.bid < scope.auction.winnerbid) {
+                    return showAlert();
+                }
                 MainService.bidAuction({
                     username: scope.currentUser.name,
                     bid: scope.model.bid

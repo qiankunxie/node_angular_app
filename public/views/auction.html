@@ -11,7 +11,7 @@
     <p>Winning bid: <span ng-bind="auction.winnerbid"></span></p>
     <p>Time left: <span ng-bind="counter"></span></p>
     <div ng-if="auction.status === 'Active'">
-        <p>Your bid: <input ng-model="model.bid"/></p>
+        <p>Your bid: <input type='number' ng-model="model.bid"/></p>
         <p><button ng-click="bidAuction()">Place Bid</button></p>
     </div>
 </div>
