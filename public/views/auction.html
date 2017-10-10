@@ -55,8 +55,10 @@
             </md-list-item>
             <md-list-item ng-if="auction.status === 'Active'" class="md-3-line">
                 <div class="md-list-item-text">
-                    <p>Your bid: <input type='number' ng-model="model.bid"/></p>
-                    <p><button ng-click="bidAuction()">Place Bid</button></p>
+                    <md-input-container>
+                        <p>Your bid: <input type='number' ng-model="model.bid"/></p>
+                        <md-button ng-click="bidAuction()">Place Bid</md-button>
+                    </md-input-container>
                 </div>
                 <md-divider inset></md-divider>
             </md-list-item>
