@@ -19,14 +19,14 @@ function InventoryService() {
             if (error) {
                 return callback(error);
             }
-            inventory.breads += params.deltaBreads || 0;
-            inventory.carrots += params.deltaCarrotss || 0;
-            inventory.diamond += params.deltaDiamond || 0;
+            inventory.breads += params.deltabreads || 0;
+            inventory.carrots += params.deltacarrotss || 0;
+            inventory.diamond += params.deltadiamond || 0;
             inventory.save(function (error) {
                 if (error) {
                     return callback(error);
                 }
-                callback(inventory);
+                callback(null, inventory);
             });
         });
     }

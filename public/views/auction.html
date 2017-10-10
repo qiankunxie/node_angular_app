@@ -1,4 +1,14 @@
-<div class="col-sm-4 well">
-    {{currentUser.name}}
-    {{currentUser.coins}}
+<div ng-if="!auction" class="col-sm-4 well">
+    <p>Auction</p>
+    <br />
+    <p>No auction at the moment.</p>
+</div>
+<div ng-if="auction" class="col-sm-4 well">
+    <p>Auction</p>
+    <p>Seller Name: <span ng-bind="auction.sellername"></span></p>
+    <p>Product: <span ng-bind="auction.product"></span></p>
+    <p>Minimum bid: <span ng-bind="auction.minbid"></span></p>
+    <p>Winning bid: <span ng-bind="auction.winnerbid"></span></p>
+    <p>Time left: <span ng-bind="auction.winnerbid"></span></p>
+    <p>Your bid: <input /></p>
 </div>

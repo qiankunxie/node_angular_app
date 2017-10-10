@@ -1,7 +1,50 @@
-var Auction = require("../models/Auction");
+var Auction = require("../models/Auction"),
+    User = require("../models/User"),
+    Inventory = require("../models/Inventory"),
+    InventoryService = require('./InventoryService'),
+    SocketService = require('./SocketService');
 
 function AuctionService() {
     var self = this;
+
+    function fullfileAuction() {
+        Auction.findOne({status: 'Active'}, function (error, auction) {
+            if (error || !auction || !auction.winnername) {
+                return;
+            }
+            if (auction.finishdate < Date.now()) {
+                // update coins
+                var sellerName = auction.sellername,
+                    buyerName = auction.winnername;
+                User.update({
+                    name: buyerName
+                }, {
+                    $inc: { coins: -auction.winnerbid }
+                }, function (error) {
+                    User.update({
+                        name: sellerName
+                    }, {
+                        $inc: { coins: auction.winnerbid }
+                    }, function () {
+                        var params = {
+                            username: sellerName
+                        };
+                        params["delta" + auction.product] = -auction.quantity;
+                        InventoryService.ChangeInventory(params, function () {
+                            var params = {
+                                username: buyerName
+                            };
+                            params["delta" + auction.product] = auction.quantity;
+                            InventoryService.ChangeInventory(params, function () {
+                                console.log("done");
+                            });
+                        });
+                    })
+                });
+            }
+        });
+    }
+
     this.GetCurrentAuction = function (params, callback) {
         Auction.findOne({status: 'Active'}, function (error, auction) {
 			if (error) {
@@ -10,6 +53,7 @@ function AuctionService() {
 			callback(null, auction);
 		});
     };
+
 
 /**
  * [CreateAuction description]
@@ -35,10 +79,37 @@ function AuctionService() {
                 if (error) {
                     return callback(error);
                 }
+                SocketService.UpdateAuction(auction);
+                // setTimeout(function () {
+                //     fullfileAuction();
+                // }, 90 * 1000 + 10);
                 callback(null, auction);
             });
 		});
     };
+
+    this.BidAuction = function (params, callback) {
+        var updateFinishDate = false;
+        Auction.findOne({status: 'Active'}, function (error, auction) {
+			if (error) {
+				return callback(error);
+			}
+            if (!params.username || params.bid < auction.winnerbid) {
+                return callback("Bid amount should larger then winner bid");
+            }
+            auction.winnerbid = params.bid;
+            auction.winnername = params.username;
+            if (finishdate - Date.now() < 10 * 1000) {
+                updateFinishDate = true;
+                auction.finishdate = Date.now() + (10 * 1000 - (finishdate - Date.now()));
+            }
+            auction.save(function () {
+                if (updateFinishDate) {
+                    // do some io
+                }
+            })
+        });
+    }
 }
 
 module.exports = new AuctionService();

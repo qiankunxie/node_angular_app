@@ -11,7 +11,6 @@ angular.module('MainService', []).factory('MainService', ['$http', function($htt
 			return response.data;
 		});
 	}
-
 	function getInventory(username) {
 		return $http({
 			  url: '/inventory',
@@ -23,8 +22,17 @@ angular.module('MainService', []).factory('MainService', ['$http', function($htt
 			return response.data;
 		});
 	}
+	function getAuction(username) {
+		return $http({
+			url: '/auction',
+			method: 'GET'
+		}).then(function (response) {
+			return response.data;
+		});
+	}
 	return {
 		login: login,
-		getInventory: getInventory
+		getInventory: getInventory,
+		getAuction: getAuction
 	}
 }]);

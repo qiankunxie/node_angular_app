@@ -1,5 +1,5 @@
 angular.module('AuctionDirective', [])
-.directive("auctionWidget", function ($http) {
+.directive("auctionWidget", function ($http, $window, MainService) {
     return {
         restrict: 'E',
         scope: {
@@ -7,19 +7,16 @@ angular.module('AuctionDirective', [])
         },
         templateUrl: 'views/auction.html',
         link: function (scope, element, attr) {
-            // scope.products = ["breads", "carrots", "diamond"];
-            // function getMyInventory(username) {
-            //     return $http({
-            //           url: '/inventory',
-            //           method: 'GET',
-            //           params: {
-            //               username: username
-            //           }
-            //     }).then(function (response) {
-            //       	scope.inventory = response.data;
-    		// 	});
-        	// }
-            // getMyInventory(scope.currentUser.name);
+            // init the web socket
+            MainService.getAuction().then(function (auction) {
+                if (auction) {
+                    scope.auction = auction;
+                }
+            });
+            var socket = $window.io();
+            socket.on('update', function(obj){
+                console.log("Update", obj);
+            });
             console.log(scope);
         }
     };

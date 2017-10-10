@@ -16,6 +16,9 @@ angular.module('InventoryDirective', [])
                     scope.inventory = inventory;
                 });
         	}
+            function createAuction(params) {
+                
+            }
             getMyInventory(scope.currentUser.name);
             console.log(scope);
         }

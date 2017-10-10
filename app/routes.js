@@ -37,8 +37,27 @@ module.exports = function(app) {
 		});
 	});
 
-	app.post('/createAuction', function (req, res) {
+	app.get('/auction', function (req, res) {
+		AuctionService.GetCurrentAuction({}, function (error, auction) {
+			if (error) {
+				return res.send(error);
+			}
+			res.json(auction || '');
+		});
+	});
 
+	app.post('/createauction', function (req, res) {
+		AuctionService.CreateAuction({
+			username: "qiankunxie",
+			quantity:10,
+			product: "breads",
+			minbid: 100
+		}, function (error) {
+			if (error) {
+				return res.send(error);
+			}
+			res.send("Successful");
+		});
 	});
 
 	app.get('*', function(req, res) {

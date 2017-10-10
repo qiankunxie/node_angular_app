@@ -13,7 +13,7 @@ var mongoose = require('mongoose'),
 module.exports = mongoose.model('Auction', {
 	sellername : {type : String, default: ''},
     quantity: {type: Number, default: 0},
-    product: {type : String, enum: Object.keys(statusEnum)},
+    product: {type : String, enum: Object.keys(productEnum)},
 	minbid: {type: Number, default: 0},
     winnername: {type : String, default: ''},
     winnerbid: {type: Number, default: 0},
