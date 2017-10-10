@@ -22,7 +22,7 @@ angular.module('AuctionDirective', [])
                 },
                 initAuction = function (auction) {
                     scope.auction = auction;
-                    scope.counter = Math.floor((auction.finishdate - Date.now()) / 1000);
+                    scope.counter = Math.ceil((auction.finishdate - Date.now()) / 1000);
                     $timeout.cancel(mytimeout);
                     startTimer();
                 }
