@@ -1,5 +1,5 @@
 angular.module('InventoryDirective', [])
-.directive("inventoryWidget", function ($http, MainService) {
+.directive("inventoryWidget", function ($http, MainService, $mdDialog) {
     return {
         restrict: 'E',
         scope: {
@@ -16,16 +16,30 @@ angular.module('InventoryDirective', [])
                     scope.inventory = inventory;
                 });
         	}
-            scope.createAuction = function(params) {
+            scope.createAuction = function(minbid, product) {
                 MainService.createAuction({
                     username: scope.currentUser.name,
-        			quantity:1,
-        			product: "breads",
-        			minbid: 100 * Math.random()
+        			quantity: 1,
+        			product: product,
+        			minbid: minbid
                 }).then(function (message) {
                     console.log(message);
                 });
             }
+            scope.showPrompt = function(ev, product) {
+                var confirm = $mdDialog.prompt()
+                    .title('What to start auction?')
+                    .placeholder('Minimum Bid Value')
+                    .ariaLabel('Minimum Bid Value')
+                    .targetEvent(ev)
+                    .required(true)
+                    .ok('Start Auction')
+                    .cancel('Cancel');
+
+                $mdDialog.show(confirm).then(function(result) {
+                    scope.createAuction(result, product);
+                });
+            };
             getMyInventory(scope.currentUser.name);
             console.log(scope);
         }

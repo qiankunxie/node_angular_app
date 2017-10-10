@@ -1,6 +1,6 @@
 <div ng-if="inventory" class="col-sm-4 well">
     <p>Inventory</p>
     <div ng-repeat="product in products">
-        <p>{{product}}: <span>{{inventory[product]}}</span><button ng-click="createAuction()">Auction</button></p>
+        <p>{{product}}: <span>{{inventory[product]}}</span><md-button class="md-primary md-raised" ng-click="showPrompt($event, product)">Auction</md-button></p>
     </div>
 </div>
