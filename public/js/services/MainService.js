@@ -30,9 +30,19 @@ angular.module('MainService', []).factory('MainService', ['$http', function($htt
 			return response.data;
 		});
 	}
+	function createAuction(data) {
+		return $http({
+			url: '/createauction',
+			method: 'POST',
+			data: data
+		}).then(function (response) {
+			return response.data;
+		});
+	}
 	return {
 		login: login,
 		getInventory: getInventory,
-		getAuction: getAuction
+		getAuction: getAuction,
+		createAuction: createAuction
 	}
 }]);

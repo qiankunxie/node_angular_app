@@ -65,9 +65,9 @@ function AuctionService() {
 			if (error) {
 				return callback(error);
 			}
-			if (auction) {
-                return callback("There is a running auction, you can create after this auction finsished");
-            }
+			// if (auction) {
+            //     return callback("There is a running auction, you can create after this auction finsished");
+            // }
             auction = new Auction({
                 sellername: params.username,
                 quantity: params.quantity,

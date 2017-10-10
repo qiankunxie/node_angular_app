@@ -14,8 +14,9 @@ angular.module('AuctionDirective', [])
                 }
             });
             var socket = $window.io();
-            socket.on('update', function(obj){
-                console.log("Update", obj);
+            socket.on('update-auction', function(auction){
+                scope.auction = auction;
+                console.log("update-auction", auction);
             });
             console.log(scope);
         }

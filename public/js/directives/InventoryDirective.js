@@ -16,8 +16,15 @@ angular.module('InventoryDirective', [])
                     scope.inventory = inventory;
                 });
         	}
-            function createAuction(params) {
-                
+            scope.createAuction = function(params) {
+                MainService.createAuction({
+                    username: scope.currentUser.name,
+        			quantity:1,
+        			product: "breads",
+        			minbid: 100 * Math.random()
+                }).then(function (message) {
+                    console.log(message);
+                });
             }
             getMyInventory(scope.currentUser.name);
             console.log(scope);

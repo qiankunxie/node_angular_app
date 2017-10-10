@@ -47,11 +47,12 @@ module.exports = function(app) {
 	});
 
 	app.post('/createauction', function (req, res) {
+		var body = req.body;
 		AuctionService.CreateAuction({
-			username: "qiankunxie",
-			quantity:10,
-			product: "breads",
-			minbid: 100
+			username: body.username,
+			quantity: body.quantity,
+			product: body.product,
+			minbid: body.minbid
 		}, function (error) {
 			if (error) {
 				return res.send(error);

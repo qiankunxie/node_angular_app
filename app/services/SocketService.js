@@ -7,7 +7,7 @@ function SocketService() {
 
     this.UpdateAuction = function (auction) {
         if (io) {
-            io.emit("update", auction);
+            io.emit("update-auction", auction);
         }
     }
 }
