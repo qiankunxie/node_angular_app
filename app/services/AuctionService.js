@@ -73,7 +73,7 @@ function AuctionService() {
                 quantity: params.quantity,
                 product: params.product,
                 minbid: params.minbid,
-                finishdate: Date.now() + 90 * 1000
+                finishdate: Date.now() + 20 * 1000
             });
             auction.save(function (error) {
                 if (error) {
@@ -101,7 +101,7 @@ function AuctionService() {
             auction.winnername = params.username;
             if (auction.finishdate - Date.now() < 10 * 1000) {
                 updateFinishDate = true;
-                auction.finishdate = Date.now() + (10 * 1000 - (auction.finishdate - Date.now()));
+                auction.finishdate = Date.now() + 10 * 1000;
             }
             auction.save(function () {
                 if (updateFinishDate) {
