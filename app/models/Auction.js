@@ -1,7 +1,6 @@
 var mongoose = require('mongoose'),
     statusEnum = {
         Active: 0,
-        Expired: 0,
         Closed: 0
     },
     productEnum = {

@@ -1,5 +1,5 @@
 angular.module('UserDirective', [])
-.directive("userWidget", function () {
+.directive("userWidget", function ($window, MainService) {
     return {
         restrict: 'E',
         scope: {
@@ -7,7 +7,12 @@ angular.module('UserDirective', [])
         },
         templateUrl: 'views/user.html',
         link: function (scope, element, attr) {
-            console.log(scope);
+            var socket = $window.io();
+            socket.on('finish-auction', function(){
+                MainService.login(scope.currentUser.name).then(function (user) {
+                    scope.currentUser = user;
+                });
+            });
         }
     };
 });

@@ -10,6 +10,11 @@ function SocketService() {
             io.emit("update-auction", auction);
         }
     }
+    this.FinishAuction = function () {
+        if (io) {
+            io.emit("finish-auction");
+        }
+    }
 }
 
 module.exports = new SocketService();
