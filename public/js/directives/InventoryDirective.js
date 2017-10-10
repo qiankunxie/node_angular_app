@@ -15,26 +15,33 @@ angular.module('InventoryDirective', [])
                 MainService.getInventory(username).then(function (inventory) {
                     scope.inventory = inventory;
                 });
-        	}
+            }
             scope.createAuction = function(minbid, product) {
                 MainService.createAuction({
                     username: scope.currentUser.name,
-        			quantity: 1,
-        			product: product,
-        			minbid: minbid
+                    quantity: 1,
+                    product: product,
+                    minbid: minbid
                 }).then(function (message) {
-                    console.log(message);
+                    $mdDialog.show(
+                        $mdDialog.alert()
+                        .parent(angular.element(document.querySelector('#popupContainer')))
+                        .clickOutsideToClose(true)
+                        .title('Alert')
+                        .textContent(message)
+                        .ok('Got it!')
+                    );
                 });
             }
             scope.showPrompt = function(ev, product) {
                 var confirm = $mdDialog.prompt()
-                    .title('What to start auction?')
-                    .placeholder('Minimum Bid Value')
-                    .ariaLabel('Minimum Bid Value')
-                    .targetEvent(ev)
-                    .required(true)
-                    .ok('Start Auction')
-                    .cancel('Cancel');
+                .title('What to start auction?')
+                .placeholder('Minimum Bid Value')
+                .ariaLabel('Minimum Bid Value')
+                .targetEvent(ev)
+                .required(true)
+                .ok('Start Auction')
+                .cancel('Cancel');
 
                 $mdDialog.show(confirm).then(function(result) {
                     scope.createAuction(result, product);
