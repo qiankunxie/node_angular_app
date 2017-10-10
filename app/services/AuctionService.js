@@ -126,6 +126,12 @@ function AuctionService() {
             })
         });
     }
+
+    this.ClearAuction = function () {
+        Auction.update({}, {$set: {status: 'Closed'}}, {multi: true}, function (error) {
+            console.log("clear old auctions");
+        });
+    }
 }
 
 module.exports = new AuctionService();

@@ -5,6 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
     SocketService = require('./app/services/SocketService'),
+    AuctionService = require('./app/services/AuctionService')
     methodOverride = require('method-override');
 
 // config files
@@ -28,6 +29,7 @@ io.on('connection', function(socket){
 });
 
 http.listen(port, function () {
+    AuctionService.ClearAuction();
     console.log('Magic happens on port ' + port);
 });
 exports = module.exports = app;
