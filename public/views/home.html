@@ -1,15 +1,20 @@
 <div class="jumbotron">
-	<div class="text-center">
-		<form ng-if="!currentUser" class="form-inline">
-			<div class="form-group">
-				<input class="form-control span1"
-					   type="text"
-					   ng-attr-placeholder="Please Enter User Name"
-					   ng-model="model.userName"/>
+
+	<h2 class="text-center">Qiankun's Auction System</h2>
+	<form ng-if="!currentUser" name="userForm">
+		<md-content layout-padding>
+			<div layout-gt-sm="row">
+				<md-input-container class="md-block" flex-gt-sm>
+					<label>User Name</label>
+					<input ng-model="model.userName" required name="name">
+					<div ng-messages="userForm.name.$error">
+						<div ng-message="required">Name is required.</div>
+					</div>
+				</md-input-container>
+				<md-button type="submit" ng-click="login()">Enter</md-button>
 			</div>
-			<button class="btn btn-primary" ng-click="login()">Enter</button>
-		</form>
-	</div>
+		</md-content>
+	</form>
 	<div ng-if="currentUser" class="row">
 		<user-widget current-user="currentUser"></user-widget>
 		<inventory-widget current-user="currentUser"></inventory-widget>
