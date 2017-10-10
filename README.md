@@ -1,22 +1,20 @@
+# MEAN Stack Single Page Application Starter
 
-## Check lists
+This is a repo for a starter appliation for a Single Page MEAN Stack application. Just download and install and you have a good foundation for building application. 
 
-### Mandatory
-* [x] Three-way binding (View > Model > Database).
-* [x] Each one of the three mentioned widgets must be implemented as an AngularJS directive.
-* [x] Use NodeJS + Express for the back-end.
-* [x] Apply input validations and constraints wherever necessary to create a stable application.
-* [x] All users data should persist when the application is shut down and available when restarted.
-* [ ] Your datastores should be any SQL based variation RDS (MySQL, SQL Server, Sqlite, Postgres). Using MongoDB instead
-* [x] Even if you are not able to complete all the tasks, try to achieve a working application.
+## Installation
+1. Download the repository
+2. Install npm modules: `npm install`
+3. Install bower dependencies `bower install`
+4. Start up the server: `node server.js`
+5. View in browser at http://localhost:8080
 
-### Bonus Points:
-* [ ] All code should be commented using JSDoc format.
-* [x] All code should adhere to appropriate JSHint standards.
-* [ ] Business logic should be unit tested under the Mocha framework.
-* [ ] Non-UI routes should be end-to-end tested under the Mocha framework.
-* [x] Use Material Design style for the UI.
-* [ ] Create a Docker container for the application (include a Dockerfile).
-* [x] Add missing requirements to the implementation, according to your experience.
+Use this starter kit to build any MEAN stack application you like.
 
-### Run app
+If you have any questions or requests, email us at [chris@scotch.io](mailto:chris@scotch.io) and we'll keep updating this to make it perfect.
+
+## Future Additions
+- CRUD examples
+- Development and Production Environments
+- Link examples
+- Single Page AngularJS Animations
